@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCP Server Tutorial</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Learn how to build MCP servers with our comprehensive guide to implementing the Model Context Protocol effectively.">
+    <meta name="keywords" content="MCP, Model Context Protocol, server, tutorial, development">
+    <meta name="author" content="Mehdi Harzallah">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="MCP Server Tutorial">
+    <meta property="og:description" content="Learn how to build MCP servers with our comprehensive guide to implementing the Model Context Protocol effectively.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= typeof url !== 'undefined' ? url : 'https://yoursite.com' %>">
+    <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : 'https://yoursite.com/images/og-image.jpg' %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MCP Server Tutorial">
+    <meta name="twitter:description" content="Learn how to build MCP servers with our comprehensive guide to implementing the Model Context Protocol effectively.">
+    <link rel="canonical" href="<%= typeof canonicalUrl !== 'undefined' ? canonicalUrl : 'https://yoursite.com' + req.path %>">
+    <title><%= typeof title !== 'undefined' ? title + ' - MCP Server Tutorial' : 'MCP Server Tutorial' %></title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MCP Server Tutorial",
+      "description": "Learn how to build MCP servers with our comprehensive guide to implementing the Model Context Protocol effectively.",
+      "url": "<%= typeof url !== 'undefined' ? url : 'https://yoursite.com' %>",
+      "author": {
+        "@type": "Person",
+        "name": "Mehdi Harzallah",
+        "url": "https://linkedin.com/in/mehdi-harzallah"
+      }
+    }
+    </script>
     <style>
         .prose {
             max-width: 65ch;
@@ -61,10 +96,14 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
     </style>
+    
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
 </head>
 <body class="bg-gray-50 pt-20">
     <!-- Mobile Navigation -->
-    <nav class="fixed z-50 mobile-nav bg-white/90 shadow-lg ">
+    <nav class="fixed z-50 mobile-nav bg-white/90 shadow-lg" aria-label="Main navigation">
         <div class="px-6">
             <div class="flex items-center h-16 space-x-6 m-2">
                 <a href="/" class="nav-item flex flex-col items-center py-2 px-3 rounded-lg transition-all duration-200" id="nav-home">
@@ -145,28 +184,32 @@
 
     <!-- Scripts -->
     <script>
-        // Show progress bar only on installation and tutorial pages
-        if (window.location.pathname === '/installation' || window.location.pathname === '/tutorial') {
-            document.getElementById('progress-container').classList.remove('hidden');
-            
-            // Calculate reading progress
-            window.addEventListener('scroll', () => {
-                const winScroll = document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('progress-bar').style.width = scrolled + '%';
-            });
-        }
-
-        // Set active navigation item
+        // Add meta description based on current page
         document.addEventListener('DOMContentLoaded', () => {
+            // Show progress bar only on installation and tutorial pages
+            if (window.location.pathname === '/installation' || window.location.pathname === '/tutorial') {
+                document.getElementById('progress-container').classList.remove('hidden');
+                
+                // Calculate reading progress
+                window.addEventListener('scroll', () => {
+                    const winScroll = document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    document.getElementById('progress-bar').style.width = scrolled + '%';
+                });
+            }
+
+            // Set active navigation item
             const path = window.location.pathname;
             if (path === '/') {
                 document.getElementById('nav-home').classList.add('active');
+                document.getElementById('nav-home').setAttribute('aria-current', 'page');
             } else if (path === '/installation') {
                 document.getElementById('nav-install').classList.add('active');
+                document.getElementById('nav-install').setAttribute('aria-current', 'page');
             } else if (path === '/tutorial') {
                 document.getElementById('nav-tutorial').classList.add('active');
+                document.getElementById('nav-tutorial').setAttribute('aria-current', 'page');
             }
         });
     </script>
